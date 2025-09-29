@@ -7,15 +7,25 @@
   typography, layouts and component styling.
 */
 
-/* Colour palette */
+/* Colour palette
+   -----------------------------------------------------------------------
+   A deep crimson accent paired with inky blacks sets a moody, hard‑rock
+   atmosphere.  The variables below control every colour used in the site,
+   making it easy to tweak the look later on.  The purple accent from the
+   first version has been replaced with a rich red to better suit the emo/
+   rock vibe. */
 :root {
-  --background-dark: #0d0d0d;
-  --card-background: #1a1a1a;
-  --accent-colour: #8f5cff; /* purple accent reminiscent of rock/poster art */
-  --text-light: #e5e5e5;
-  --text-muted: #999;
-  --border-colour: #333;
-  --shadow-colour: rgba(0, 0, 0, 0.6);
+  /* Base colours */
+  --background-dark: #070707;    /* almost black */
+  --card-background:   #121212;    /* panels & cards */
+  --accent-colour:     #e63946;    /* deep crimson highlight */
+  --text-light:        #f2f2f2;    /* high‑contrast text */
+  --text-muted:        #888;       /* softer supporting text */
+  --border-colour:     #2a2a2a;    /* subtle panel outlines */
+  --shadow-colour:     rgba(0,0,0,0.7); /* deeper shadows */
+
+  /* Derived colours */
+  --accent-colour-light: #f26a75; /* lighter version of accent for hover states */
 }
 
 /* Global reset */
@@ -36,25 +46,30 @@ body {
   align-items: center;
   justify-content: flex-start;
   overflow-x: hidden;
+  /* subtle noise overlay for a grungy feel */
+  background-image:
+    radial-gradient(circle at center, transparent 0%, transparent 50%, rgba(255,255,255,0.02) 51%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0 2px, transparent 2px 4px);
 }
 
-/* Reusable button */
+/* Reusable button
+   Buttons adopt the accent colour and a pill shape.  The border is
+   slightly inset to resemble a guitar pick, reinforcing the rock theme. */
 .btn {
   display: inline-block;
   background: var(--accent-colour);
   color: #fff;
   padding: 12px 30px;
-  border-radius: 30px;
+  border-radius: 50px;
   text-decoration: none;
   font-weight: 600;
   transition: background 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 4px 12px var(--shadow-colour);
+  box-shadow: 0 6px 16px var(--shadow-colour);
+  border: 2px solid var(--border-colour);
 }
 
-/* Hover state – if CSS colour‑mix is supported the accent colour
-   lightens slightly, otherwise it stays the same. */
 .btn:hover {
-  background: var(--accent-colour-light, var(--accent-colour));
+  background: var(--accent-colour-light);
   transform: translateY(-3px);
 }
 
@@ -78,6 +93,7 @@ body {
   margin-bottom: 20px;
   font-weight: 700;
   color: var(--accent-colour);
+  font-family: 'Metal Mania', 'Montserrat', sans-serif;
 }
 
 .landing-container p {
@@ -86,96 +102,49 @@ body {
   color: var(--text-muted);
 }
 
-/* Explanation page */
-.explanation {
-  padding: 80px 20px;
-  text-align: center;
-}
+/* The explanation page has been removed.  Styles that were used solely
+   on that page have been deleted. */
 
-.explanation header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  color: var(--accent-colour);
-}
-
-.explanation header p {
-  max-width: 800px;
-  margin: 0 auto 40px auto;
-  color: var(--text-muted);
-}
-
-.video-selector {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 40px;
-}
-
-.video-card {
-  background: var(--card-background);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px var(--shadow-colour);
-  width: 80vw;
-  max-width: 600px;
-  text-align: center;
-}
-
-.video-card h2 {
-  margin-bottom: 10px;
-  font-size: 1.5rem;
-  color: var(--accent-colour);
-}
-
-.video-card video {
-  width: 100%;
-  max-height: 350px;
-  border-radius: 8px;
-  background: #000;
-}
-
-/* Skeleton arrow buttons */
+/* Skeleton arrow buttons
+   These circular buttons act as navigation for the video carousel.
+   They feature a crimson outline and a subtle skull/bone emblem in
+   place of plain arrows.  We remove the built‑in unicode arrows from
+   HTML to avoid visual overlap; instead the symbol inside the
+   button is provided via CSS. */
 .skeleton-arrow {
   position: relative;
-  width: 60px;
-  height: 60px;
-  margin: 0 15px;
+  width: 64px;
+  height: 64px;
+  margin: 0 20px;
   border-radius: 50%;
   background: var(--card-background);
-  border: 2px solid var(--border-colour);
-  color: var(--accent-colour);
-  font-size: 2rem;
-  font-weight: bold;
+  border: 2px solid var(--accent-colour);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.2s ease;
-  box-shadow: 0 4px 12px var(--shadow-colour);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 16px var(--shadow-colour);
   user-select: none;
+  color: var(--accent-colour);
+  font-size: 1.6rem;
+  line-height: 1;
 }
 
 .skeleton-arrow:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px var(--shadow-colour);
 }
 
-/* Crossbones using pseudo‑elements */
-.skeleton-arrow::before,
-.skeleton-arrow::after {
-  content: '';
-  position: absolute;
-  width: 60%;
-  height: 8%;
-  background: var(--border-colour);
-  border-radius: 10px;
-}
-
+/* Insert a skull/bone unicode character to represent navigation.
+   The same symbol is used for both left and right; orientation is
+   communicated by placement on screen.  Feel free to swap this for
+   another emoji or icon if desired (e.g. 🐉 for a dragon). */
 .skeleton-arrow::before {
-  transform: rotate(45deg);
-}
-
-.skeleton-arrow::after {
-  transform: rotate(-45deg);
+  content: '\1F480'; /* skull emoji */
+  font-family: 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
+  font-size: 1.8rem;
+  pointer-events: none;
 }
 
 /* Carousel page */
@@ -188,6 +157,7 @@ body {
   font-size: 2.5rem;
   margin-bottom: 40px;
   color: var(--accent-colour);
+  font-family: 'Metal Mania', 'Montserrat', sans-serif;
 }
 
 .carousel-container {
@@ -300,6 +270,7 @@ body {
   font-size: 2.5rem;
   margin-bottom: 20px;
   color: var(--accent-colour);
+  font-family: 'Metal Mania', 'Montserrat', sans-serif;
 }
 
 .final-page p {
@@ -323,9 +294,11 @@ body {
   width: 100%;
   height: 200px;
   object-fit: cover;
-  border-radius: 10px;
-  border: 1px solid var(--border-colour);
-  box-shadow: 0 4px 12px var(--shadow-colour);
+  border-radius: 12px;
+  border: 2px solid var(--accent-colour);
+  box-shadow: 0 6px 16px var(--shadow-colour);
+  /* slight desaturation to unify different photos; remove if undesired */
+  filter: saturate(80%);
 }
 
 /* Utility: lighten function using CSS custom properties (fallback if not supported) */
