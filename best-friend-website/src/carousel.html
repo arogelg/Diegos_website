@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Carousel</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="carousel-page">
+  <h1 class="carousel-title">Our Video Memories</h1>
+  <div class="carousel-container">
+    <!-- Left navigation arrow -->
+    <div id="prevVideo" class="skeleton-arrow arrow-left">&#10094;</div>
+    <!-- Carousel wrapper -->
+    <div class="carousel">
+      <!-- Each carousel-item holds a video and caption.  Add or remove items as needed.
+           Be sure to update video file names and captions to match your friends -->
+      <div class="carousel-item">
+        <video src="../assets/videos/friend1.mp4" controls></video>
+        <p class="caption">Friend&nbsp;1</p>
+      </div>
+      <div class="carousel-item">
+        <video src="../assets/videos/friend2.mp4" controls></video>
+        <p class="caption">Friend&nbsp;2</p>
+      </div>
+      <div class="carousel-item">
+        <video src="../assets/videos/friend3.mp4" controls></video>
+        <p class="caption">Friend&nbsp;3</p>
+      </div>
+      <!-- Example additional item:
+      <div class="carousel-item">
+        <video src="../assets/videos/friend4.mp4" controls></video>
+        <p class="caption">Friend&nbsp;4</p>
+      </div> -->
+    </div>
+    <!-- Right navigation arrow -->
+    <div id="nextVideo" class="skeleton-arrow arrow-right">&#10095;</div>
+  </div>
+  <div class="navigation">
+    <a href="final.html" class="btn">Next: Picture Memories</a>
+  </div>
+  <script src="js/videoCarousel.js"></script>
+</body>
+</html>
