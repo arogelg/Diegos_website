@@ -1,257 +1,283 @@
-/* Basic variables for colours */
+/* Colour palette and global resets */
 :root {
-  --background-dark: #0e0e0e;
-  --primary-colour: #111;
-  --accent-colour: #ff5252;
-  --text-colour: #fff;
-  --text-muted: #c2c2c2;
+  --primary-colour:    #151515;    /* main background (very dark grey) */
+  --secondary-colour:  #2b2a2a;    /* subtle contrast for cards and panels */
+  --accent-colour:     #e63946;    /* deep crimson highlight */
+  --light-colour:      #f5f5f5;    /* almost white for high contrast text */
+  --text-muted:        #c4c4c4;    /* muted grey for secondary text */
+  --radius:            6px;
+  /* Provide an American-spelled alias so --accent-color resolves to the same value. */
+  --accent-color: var(--accent-colour);
 }
 
-/* Global styles */
-* {
-  box-sizing: border-box;
+/* Base styles for all pages */
+body {
   margin: 0;
   padding: 0;
-}
-
-body,
-html {
   font-family: 'Montserrat', sans-serif;
-  color: var(--text-colour);
+  background-color: var(--primary-colour);
+  color: var(--light-colour);
 }
 
-/* Button styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Button styling */
 .btn {
   display: inline-block;
-  padding: 12px 24px;
-  color: #fff;
-  border: 2px solid var(--accent-colour);
-  border-radius: 4px;
-  background-color: var(--accent-colour);
-  text-decoration: none;
-  font-weight: 600;
-  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  background: var(--accent-colour);
+  color: #f5f5f5;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .btn:hover {
-  transform: scale(1.05);
-  background-color: #ff7272;
+  transform: translateY(-2px) scale(1.05);
+  background: var(--accent-colour);
+  box-shadow: 0 0 10px var(--accent-colour);
 }
 
-/* Landing page
-   The gothic gift should feel like stepping into a dark, romantic world.  A
-   textured background of black roses and chains sets the tone, while a
-   balanced two‑column layout introduces the message alongside a stylised
-   illustration. */
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Landing page */
 .landing {
-  /* Fill the viewport and fix the pattern so it doesn’t scroll away. */
+  /*
+    Occupies the entire viewport and provides a dramatic backdrop with our Jujutsu
+    Kaisen illustration overlaid by a dark gradient.  The pattern no longer scrolls
+    away because the decorative border is drawn via a pseudo element defined below.
+  */
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url('../assets/images/gothic_pattern.png') no-repeat center center fixed;
-  background-size: cover;
-  color: #f5f5f5;
-  padding: 60px 20px;
+  flex-direction: column;
+  /* Layer the hero artwork beneath a semi-transparent black gradient to improve
+     readability of the text.  The image is anchored to the bottom so the
+     characters stay in view on tall screens. */
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 0.9) 100%),
+    url('../assets/images/jjk_bg.png') center bottom/cover no-repeat;
+  color: var(--light-colour);
+  overflow-x: hidden;
+  position: relative;
+  padding: 0;
 }
 
-.landing-container {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
+/* A gothic border sits at the bottom of the landing page.  It uses a pseudo–element
+   so the markup can remain clean.  The opacity keeps it subtle. */
+.landing::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
+  height: 200px;
+  background: url('../assets/images/gothic_border.webp') center bottom/cover no-repeat;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
 }
 
-/* Left side: message */
-.hero-content {
-  flex: 1 1 50%;
-  padding: 20px;
+/* Content wrapper for the landing page.  It centres the heading, description and button
+   on both axes and ensures they sit above the decorative background. */
+.landing-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-.hero-content h1 {
-  font-size: 4rem;
-  margin-bottom: 24px;
+.landing-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
   color: var(--accent-colour);
   font-family: 'Metal Mania', 'Montserrat', sans-serif;
 }
 
-.hero-content p {
-  font-size: 1.25rem;
+.landing-content p {
+  font-size: 1.2rem;
   line-height: 1.6;
-  margin-bottom: 32px;
+  margin-bottom: 2rem;
+  max-width: 650px;
   color: var(--text-muted);
-  max-width: 600px;
+  font-family: 'Montserrat', sans-serif;
 }
 
-/* Right side: illustration */
-.hero-image {
-  flex: 1 1 50%;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero-image img {
-  width: 100%;
-  max-width: 520px;
-  height: auto;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
-  /* Subtle desaturation so the image doesn’t compete with the text */
-  filter: grayscale(20%) brightness(90%);
-}
-
-/* Make the hero stack vertically on narrow screens */
-@media (max-width: 768px) {
-  .landing-container {
-    flex-direction: column;
-    text-align: center;
+@media (min-width: 768px) {
+  .landing-content h1 {
+    font-size: 4rem;
   }
-  .hero-content,
-  .hero-image {
-    flex: 1 1 100%;
-    padding: 10px;
-  }
-  .hero-content h1 {
-    font-size: 2.8rem;
-  }
-  .hero-content p {
-    font-size: 1.1rem;
+  .landing-content p {
+    font-size: 1.25rem;
   }
 }
 
 /* Carousel page */
 .carousel-page {
-  /* Spread out the content vertically and apply our gothic background */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background: var(--primary-colour);
   min-height: 100vh;
-  padding-top: 80px;
-  text-align: center;
-  background: url('../assets/images/gothic_pattern.png') no-repeat center center fixed;
-  background-size: cover;
+  padding: 40px 0 100px;
 }
 
 .carousel-title {
-  font-family: 'Metal Mania', 'Montserrat', sans-serif;
-  font-size: 3rem;
-  margin-bottom: 40px;
+  font-family: 'Metal Mania', cursive;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 30px;
   color: var(--accent-colour);
 }
 
 .carousel-container {
   position: relative;
-  width: 80%;
-  max-width: 600px;
-  padding: 20px 0;
-  overflow: hidden;
-  margin: auto;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .carousel {
   display: flex;
-  transition: transform 0.5s ease-in-out;
+  justify-content: center;
+  align-items: center;
+  perspective: 1500px;
+  overflow: visible;
+  height: 350px;
+  position: relative;
 }
 
 .carousel-item {
-  min-width: 100%;
-  text-align: center;
+  width: 60%;
+  max-width: 600px;
+  margin: 0 10px;
+  transition: transform 0.5s ease, filter 0.5s ease;
+  transform-style: preserve-3d;
+  position: relative;
 }
 
 .carousel-item video {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
 }
 
-.caption {
-  margin-top: 10px;
-  font-size: 1.1rem;
-  color: var(--text-muted);
+.carousel-item .caption {
+  color: var(--light-colour);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  text-align: center;
 }
 
-/* Navigation arrows on carousel page
-   Use a single class for both arrows; the IDs (#prevVideo, #nextVideo) control
-   whether the button sits to the left or right of the carousel wrapper.  A
-   circular outline and subtle glow on hover give the buttons a gothic feel
-   without relying on emoji. */
+/* Position arrows on either side of the carousel */
 .video-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  /* Make the arrows a bit larger to improve click area.  The border uses the
+     accent colour instead of a pale grey to tie in with the other gothic
+     elements. */
+  width: 64px;
+  height: 64px;
+  border: 2px solid var(--accent-colour);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2rem;
   line-height: 1;
-  color: #f5f5f5;
+  /* Use the accent colour for the glyph and border on the button.  The dark
+     background makes the crimson edge pop. */
+  color: var(--accent-colour);
   background: rgba(0, 0, 0, 0.4);
   cursor: pointer;
+  user-select: none;
   z-index: 5;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 .video-arrow:hover {
   transform: translateY(-50%) scale(1.1);
   box-shadow: 0 0 10px var(--accent-colour);
 }
 
+/* Insert arrow glyphs via pseudo elements instead of writing HTML entities directly in
+   the markup.  This keeps the HTML clean and lets us style both arrows with a
+   consistent heavy angle symbol. */
+.video-arrow.arrow-left::before {
+  content: '\276E';
+}
+
+.video-arrow.arrow-right::before {
+  content: '\276F';
+}
+
+/* Specific positions for left/right arrows */
 #prevVideo {
   left: -70px;
 }
-
 #nextVideo {
   right: -70px;
 }
 
+.navigation {
+  margin-top: 30px;
+  text-align: center;
+}
+
 /* Final page */
 .final-page {
-  /* Give the final page the same dark gothic backdrop and ensure it fills the screen */
+  background: linear-gradient(135deg, #000 0%, #0f0f0f 100%);
   min-height: 100vh;
-  padding: 80px 20px;
-  text-align: center;
-  background: url('../assets/images/gothic_pattern.png') no-repeat center center fixed;
-  background-size: cover;
+  padding: 40px 0 80px;
 }
 
 .final-page h1 {
+  font-family: 'Metal Mania', cursive;
   font-size: 2.5rem;
-  margin-bottom: 20px;
-  font-family: 'Metal Mania', 'Montserrat', sans-serif;
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--accent-colour);
 }
 
 .final-page p {
-  font-size: 1rem;
-  margin-bottom: 20px;
+  text-align: center;
   color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 30px;
 }
 
 .picture-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
-  padding: 20px 0;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.grid-item {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
 }
 
 .grid-item img {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.grid-item img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px var(--accent-colour);
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
