@@ -126,6 +126,134 @@ a {
   }
 }
 
+/* Colour palette and global resets */
+:root {
+  --primary-colour:    #151515;    /* main background (very dark grey) */
+  --secondary-colour:  #2b2a2a;    /* subtle contrast for cards and panels */
+  --accent-colour:     #e63946;    /* deep crimson highlight */
+  --light-colour:      #f5f5f5;    /* almost white for high contrast text */
+  --text-muted:        #c4c4c4;    /* muted grey for secondary text */
+  --radius:            6px;
+  /* Provide an American-spelled alias so --accent-color resolves to the same value. */
+  --accent-color: var(--accent-colour);
+}
+
+/* Base styles for all pages */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--primary-colour);
+  color: var(--light-colour);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Button styling */
+.btn {
+  display: inline-block;
+  background: var(--accent-colour);
+  color: #f5f5f5;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: var(--accent-colour);
+  box-shadow: 0 0 10px var(--accent-colour);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Landing page */
+.landing {
+  /*
+    Occupies the entire viewport and provides a dramatic backdrop with our Jujutsu
+    Kaisen illustration overlaid by a dark gradient.  The pattern no longer scrolls
+    away because the decorative border is drawn via a pseudo element defined below.
+  */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  /* Layer the hero artwork beneath a semi-transparent black gradient to improve
+     readability of the text.  The image is anchored to the bottom so the
+     characters stay in view on tall screens. */
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 0.9) 100%),
+    url('../assets/images/jjk_bg.png') center bottom/cover no-repeat;
+  color: var(--light-colour);
+  overflow-x: hidden;
+  position: relative;
+  padding: 0;
+}
+
+/* A gothic border sits at the bottom of the landing page.  It uses a pseudo–element
+   so the markup can remain clean.  The opacity keeps it subtle. */
+.landing::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: url('../assets/images/gothic_border.webp') center bottom/cover no-repeat;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Content wrapper for the landing page.  It centres the heading, description and button
+   on both axes and ensures they sit above the decorative background. */
+.landing-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.landing-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--accent-colour);
+  font-family: 'Metal Mania', 'Montserrat', sans-serif;
+}
+
+.landing-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 650px;
+  color: var(--text-muted);
+  font-family: 'Montserrat', sans-serif;
+}
+
+@media (min-width: 768px) {
+  .landing-content h1 {
+    font-size: 4rem;
+  }
+  .landing-content p {
+    font-size: 1.25rem;
+  }
+}
+
 /* Carousel page */
 .carousel-page {
   background: var(--primary-colour);
@@ -221,6 +349,65 @@ a {
 
 .video-arrow.arrow-right::before {
   content: '\276F';
+}
+
+/* Specific positions for left/right arrows */
+#prevVideo {
+  left: -70px;
+}
+#nextVideo {
+  right: -70px;
+}
+
+.navigation {
+  margin-top: 30px;
+  text-align: center;
+}
+
+/* Final page */
+.final-page {
+  background: linear-gradient(135deg, #000 0%, #0f0f0f 100%);
+  min-height: 100vh;
+  padding: 40px 0 80px;
+}
+
+.final-page h1 {
+  font-family: 'Metal Mania', cursive;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--accent-colour);
+}
+
+.final-page p {
+  text-align: center;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+.picture-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.grid-item {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+}
+
+.grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Specific positions for left/right arrows */
