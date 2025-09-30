@@ -301,6 +301,76 @@ body {
   filter: saturate(80%);
 }
 
+/*
+ * -----------------------------------------------------------------------------
+ * Video carousel arrow redesign
+ *
+ * Replace the skull‑emoji navigation used on the video carousel with simple
+ * angle‑bracket arrows.  These arrows are implemented as pseudo elements on a
+ * .video-arrow button.  The button is a circular outline that scales on
+ * hover to provide feedback.  Because we continue to reference the original
+ * element IDs (#prevVideo and #nextVideo), the existing JavaScript controls
+ * remain functional.  Add these styles after other carousel rules so they
+ * override previous definitions where necessary.
+ */
+.video-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--accent-colour);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+  transition: transform 0.2s ease;
+  /* dark translucent backdrop to separate the arrow from video frames */
+  background: rgba(0, 0, 0, 0.5);
+}
+.video-arrow:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+/* Base arrow glyph style */
+.video-arrow::before {
+  font-size: 2rem;
+  color: var(--accent-colour);
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+/* Positioning overrides for left/right arrows */
+.video-arrow.arrow-left {
+  left: -24px;
+}
+.video-arrow.arrow-right {
+  right: -24px;
+}
+/* Left arrow glyph (‹) */
+.video-arrow.arrow-left::before {
+  content: '\2039';
+}
+/* Right arrow glyph (›) */
+.video-arrow.arrow-right::before {
+  content: '\203A';
+}
+
+/*
+ * JJK splash image on the landing page
+ *
+ * The landing page now includes an illustration of Yuji and Todou.  To keep
+ * the design clean, constrain its width, add a slight margin and subtle
+ * shadows, and round the corners.  These styles are scoped to the .landing
+ * body class so they don't inadvertently affect images on other pages.
+ */
+.landing .jjk-image {
+  max-width: 80%;
+  height: auto;
+  margin-top: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
 /* Utility: lighten function using CSS custom properties (fallback if not supported) */
 @supports (color: color-mix(in srgb, red, blue)) {
   :root {
