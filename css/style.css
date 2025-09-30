@@ -1,86 +1,53 @@
-/*
-  Global styles for the Best Friend Gift Website
-  ----------------------------------------------
-  A unified dark theme with subtle skeleton‑inspired accents.  Colour
-  variables defined at the top make it easy to customise the look
-  and feel.  All pages share these styles, ensuring consistent
-  typography, layouts and component styling.
-*/
-
-/* Colour palette
-   -----------------------------------------------------------------------
-   A deep crimson accent paired with inky blacks sets a moody, hard‑rock
-   atmosphere.  The variables below control every colour used in the site,
-   making it easy to tweak the look later on.  The purple accent from the
-   first version has been replaced with a rich red to better suit the emo/
-   rock vibe. */
+/* Colour palette and global resets */
 :root {
-  /* Base colours */
-  --background-dark: #070707;    /* almost black */
-  --card-background:   #121212;    /* panels & cards */
+  --primary-colour:    #151515;    /* main background (very dark grey) */
+  --secondary-colour:  #2b2a2a;    /* subtle contrast for cards and panels */
   --accent-colour:     #e63946;    /* deep crimson highlight */
-  /* Provide an American‑spelled alias so --accent-color resolves to the same value.  This
-     allows both spellings to be used interchangeably in the stylesheet. */
+  --light-colour:      #f5f5f5;    /* almost white for high contrast text */
+  --text-muted:        #c4c4c4;    /* muted grey for secondary text */
+  --radius:            6px;
+  /* Provide an American-spelled alias so --accent-color resolves to the same value. */
   --accent-color: var(--accent-colour);
-  --text-light:        #f2f2f2;    /* high‑contrast text */
-  --text-muted:        #888;       /* softer supporting text */
-  --border-colour:     #2a2a2a;    /* subtle panel outlines */
-  --shadow-colour:     rgba(0,0,0,0.7); /* deeper shadows */
-
-  /* Derived colours */
-  --accent-colour-light: #f26a75; /* lighter version of accent for hover states */
 }
 
-/* Global reset */
-* {
+/* Base styles for all pages */
+body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--primary-colour);
+  color: var(--light-colour);
 }
 
-body {
-  font-family: 'Montserrat', 'Segoe UI', Tahoma, sans-serif;
-  background-color: var(--background-dark);
-  color: var(--text-light);
-  line-height: 1.6;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  overflow-x: hidden;
-  /* subtle noise overlay for a grungy feel */
-  background-image:
-    radial-gradient(circle at center, transparent 0%, transparent 50%, rgba(255,255,255,0.02) 51%),
-    repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0 2px, transparent 2px 4px);
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-/* Reusable button
-   Buttons adopt the accent colour and a pill shape.  The border is
-   slightly inset to resemble a guitar pick, reinforcing the rock theme. */
+/* Button styling */
 .btn {
   display: inline-block;
   background: var(--accent-colour);
-  color: #fff;
+  color: #f5f5f5;
   padding: 12px 30px;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 6px 16px var(--shadow-colour);
-  border: 2px solid var(--border-colour);
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .btn:hover {
-  background: var(--accent-colour-light);
-  transform: translateY(-3px);
+  transform: translateY(-2px) scale(1.05);
+  background: var(--accent-colour);
+  box-shadow: 0 0 10px var(--accent-colour);
 }
 
-/* Landing page
-   The gothic gift should feel like stepping into a dark, romantic world.  A
-   textured background of black roses and chains sets the tone, while a
-   balanced two‑column layout introduces the message alongside a stylised
-   illustration. */
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Landing page */
 .landing {
   /*
     Occupies the entire viewport and provides a dramatic backdrop with our Jujutsu
@@ -92,13 +59,13 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  /* Layer the hero artwork beneath a semi‑transparent black gradient to improve
+  /* Layer the hero artwork beneath a semi-transparent black gradient to improve
      readability of the text.  The image is anchored to the bottom so the
      characters stay in view on tall screens. */
   background:
     linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 0.9) 100%),
     url('../assets/images/jjk_bg.png') center bottom/cover no-repeat;
-  color: var(--light-color);
+  color: var(--light-colour);
   overflow-x: hidden;
   position: relative;
   padding: 0;
@@ -159,83 +126,6 @@ body {
   }
 }
 
-.landing-container {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
-  width: 100%;
-}
-
-/* Left side: message */
-.hero-content {
-  flex: 1 1 50%;
-  padding: 20px;
-}
-
-.hero-content h1 {
-  font-size: 4rem;
-  margin-bottom: 24px;
-  color: var(--accent-colour);
-  font-family: 'Metal Mania', 'Montserrat', sans-serif;
-}
-
-.hero-content p {
-  font-size: 1.25rem;
-  line-height: 1.6;
-  margin-bottom: 32px;
-  color: var(--text-muted);
-  max-width: 600px;
-}
-
-/* Right side: illustration */
-.hero-image {
-  flex: 1 1 50%;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero-image img {
-  width: 100%;
-  max-width: 520px;
-  height: auto;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
-  /* Subtle desaturation so the image doesn’t compete with the text */
-  filter: grayscale(20%) brightness(90%);
-}
-
-/* Make the hero stack vertically on narrow screens */
-@media (max-width: 768px) {
-  .landing-container {
-    flex-direction: column;
-    text-align: center;
-  }
-  .hero-content, .hero-image {
-    flex: 1 1 100%;
-    padding: 10px;
-  }
-  .hero-content h1 {
-    font-size: 2.8rem;
-  }
-  .hero-content p {
-    font-size: 1.1rem;
-  }
-}
-
-/* The explanation page has been removed.  Styles that were used solely
-   on that page have been deleted. */
-
-/* Skeleton arrow buttons
-   These circular buttons act as navigation for the video carousel.
-   They feature a crimson outline and a subtle skull/bone emblem in
-   place of plain arrows.  We remove the built‑in unicode arrows from
-   HTML to avoid visual overlap; instead the symbol inside the
-   button is provided via CSS. */
 .skeleton-arrow {
   position: relative;
   width: 64px;
@@ -281,14 +171,7 @@ body {
   min-height: 100vh;
   padding-top: 80px;
   text-align: center;
-  /* Apply the gothic pattern as a dark backdrop.  Using two separate
-     declarations avoids an unexpected fallback to white when the
-     image fails to load.  The background colour ensures a black
-     canvas while the pattern adds subtle texture on top. */
-  background-color: var(--primary-colour);
-  background-image: url('../assets/images/gothic_pattern.png');
-  background-repeat: no-repeat;
-  background-position: center center;
+  background: url('../assets/images/gothic_pattern.png') no-repeat center center fixed;
   background-size: cover;
 }
 
@@ -307,7 +190,7 @@ body {
   margin: 0 auto;
   perspective: 1000px;
   /* Add a subtle radial highlight behind the videos to draw the eye to
-     the centre of the carousel.  The pseudo element is positioned
+     the centre of the carousel. The pseudo element is positioned
      absolutely within the container and does not interfere with pointer
      events. */
   position: relative;
@@ -323,11 +206,10 @@ body {
   width: 95%;
   height: 90%;
   border-radius: 50%;
-  /* Soften the halo behind the carousel.  A lower opacity inner stop
-     prevents the background from appearing washed out on dark screens.
-     Tweaking the colour stop values keeps the focus subtle while
-     eliminating the bright white band seen earlier. */
-  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0));
+  /* Increase the opacity of the inner colour stop to make the halo more
+     noticeable.  The highlight should subtly draw the eye without
+     overwhelming the dark theme. */
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0));
   z-index: 0;
   pointer-events: none;
 }
@@ -345,11 +227,8 @@ body {
 .carousel-item {
   position: absolute;
   width: 60%;
-  max-width: 480px;
-  /* Reduce the height slightly so enlarged cards leave room below for
-     captions and the navigation button.  This is important on
-     mid‑sized screens where vertical space is limited. */
-  height: 65%;
+  max-width: 500px;
+  height: 70%;
   opacity: 0;
   transition: transform 0.8s ease, opacity 0.8s;
   display: flex;
@@ -390,15 +269,12 @@ body {
     videos.  The z‑index is also increased so the item sits above
     adjacent cards when overlapping occurs.
   */
-  /* Make the active card noticeably larger but not so large that it obscures
-     the surrounding interface.  A 20% boost keeps the video prominent
-     while preserving space for captions and navigation. */
-  transform: translateX(0) scale(1.2) rotateY(0deg);
+  transform: translateX(0) scale(1.35) rotateY(0deg);
   opacity: 1;
   z-index: 5;
-  /* The drop shadow around the active card has been softened to avoid
-     overpowering the subtle gothic background. */
-  filter: drop-shadow(0 0 20px rgba(255, 51, 51, 0.35));
+  /* Add a drop shadow around the active item to draw the eye.  The red
+     hue ties in with the gothic styling used throughout the site. */
+  filter: drop-shadow(0 0 25px rgba(255, 51, 51, 0.45));
 }
 
 /* When a video is the active (centered) item in the carousel, enlarge the
@@ -411,13 +287,11 @@ body {
      with the increased card size above. We also increase the glow radius
      slightly to match the larger size.
    */
-  /* Slightly enlarge the video on the active card to draw attention
-     without consuming too much vertical space.  A 10% increase
-     compliments the overall 20% card scale without hiding text or the
-     navigation. */
-  transform: scale(1.1);
+  /* Slightly increase the video scale on the active card to match the
+     enlarged container.  A 25% increase yields a balanced look. */
+  transform: scale(1.25);
   z-index: 5;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.7), 0 0 20px var(--accent-colour);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7), 0 0 30px var(--accent-colour);
 }
 
 .carousel-item.left {
@@ -428,9 +302,7 @@ body {
      slightly increase the z-index to ensure these items sit above the
      far‑left/far‑right elements but below the centre.
    */
-  /* Keep the first tier reasonably close to the centre so the
-     carousel doesn't feel empty when the active card shrinks. */
-  transform: translateX(-280px) scale(0.8) rotateY(20deg);
+  transform: translateX(-340px) scale(0.8) rotateY(20deg);
   opacity: 0.6;
   z-index: 3;
 }
@@ -439,7 +311,7 @@ body {
   /* Mirror of the `.left` rules: push to the right and maintain the same
      shrink/rotation values.  We move it further (340px) to balance with
      the larger centre card. */
-  transform: translateX(280px) scale(0.8) rotateY(-20deg);
+  transform: translateX(340px) scale(0.8) rotateY(-20deg);
   opacity: 0.6;
   z-index: 3;
 }
@@ -451,7 +323,7 @@ body {
      (0.55) so they aren’t too tiny and adjust the z-index so they sit
      behind the first tier but above hidden items.
    */
-  transform: translateX(-420px) scale(0.6) rotateY(30deg);
+  transform: translateX(-540px) scale(0.55) rotateY(30deg);
   opacity: 0.3;
   z-index: 2;
 }
@@ -459,7 +331,7 @@ body {
 .carousel-item.far-right {
   /* Mirror of `.far-left` adjustments: move further to the right and
      increase the scale slightly. */
-  transform: translateX(420px) scale(0.6) rotateY(-30deg);
+  transform: translateX(540px) scale(0.55) rotateY(-30deg);
   opacity: 0.3;
   z-index: 2;
 }
@@ -523,59 +395,86 @@ body {
   right: -70px;
 }
 
-/* Picture grid */
+/* Final page */
 .final-page {
-  /* Give the final page the same dark gothic backdrop and ensure it fills the screen */
+  background: linear-gradient(135deg, #000 0%, #0f0f0f 100%);
   min-height: 100vh;
-  padding: 80px 20px;
-  text-align: center;
-  background: url('../assets/images/gothic_pattern.png') no-repeat center center fixed;
-  background-size: cover;
+  padding: 40px 0 80px;
 }
 
 .final-page h1 {
+  font-family: 'Metal Mania', cursive;
   font-size: 2.5rem;
-  margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 30px;
   color: var(--accent-colour);
-  font-family: 'Metal Mania', 'Montserrat', sans-serif;
 }
 
 .final-page p {
-  margin-bottom: 40px;
+  text-align: center;
   color: var(--text-muted);
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 600px;
+  margin: 0 auto 30px;
 }
 
 .picture-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 15px;
-  width: 90vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
   max-width: 1000px;
-  margin: 0 auto 40px auto;
+  margin: 0 auto;
 }
 
-.picture-grid img {
-  width: 100%;
+.grid-item {
+  width: 200px;
   height: 200px;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 2px solid var(--accent-colour);
-  box-shadow: 0 6px 16px var(--shadow-colour);
-  /* slight desaturation to unify different photos; remove if undesired */
-  filter: saturate(80%);
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
 }
 
+.grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
-/* Utility: lighten function using CSS custom properties (fallback if not supported) */
-@supports (color: color-mix(in srgb, red, blue)) {
-  :root {
-    /* lighten the accent colour by mixing with white */
-    --accent-colour-light: color-mix(in srgb, var(--accent-colour) 80%, white 20%);
-  }
-  .btn:hover {
-    background: var(--accent-colour-light);
-  }
+/* --- FIX 1: restaurar --primary-colour para las páginas que aún lo usan --- */
+:root {
+  --primary-colour: var(--background-dark); /* evita fondo blanco en .carousel-page */
+}
+
+/* --- FIX 2: fondo negro garantizado y textura encima (carousel) --- */
+.carousel-page {
+  background-color: var(--background-dark); /* fallback sólido */
+  background-image: url('../assets/images/gothic_pattern.png'); /* textura */
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+/* --- FIX 3: mismo concepto para final-page (no afectar estilos previos) --- */
+.final-page {
+  background-color: #000; /* fallback sólido si falla la imagen */
+  background-image: url('../assets/images/gothic_pattern.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+/* --- UX: que el carrusel no tape título/caption/botón --- */
+.carousel-container {
+  height: 480px;          /* antes 500px */
+  padding-bottom: 70px;   /* espacio para caption y botón */
+}
+.carousel-item {
+  height: 62%;            /* antes 65–70% */
+}
+.carousel-item.center {    /* que no se coma el header */
+  transform: translateX(0) scale(1.20) rotateY(0deg);
+}
+.carousel-item.center video {
+  transform: scale(1.10);
 }
