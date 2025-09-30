@@ -527,3 +527,6 @@ body {
 .carousel-item.center video {
   transform: scale(1.10);
 }
+/* Más aire entre el video y el nombre */
+.carousel-item { gap: 14px; }      /* como ya es flex-column, gap funciona perfecto */
+.carousel-item .caption { margin-top: 8px; } /* opcional: pequeño extra; o pon 0 si solo quieres el gap */
