@@ -126,189 +126,226 @@ a {
   }
 }
 
-/* Colour palette and global resets */
-:root {
-  --primary-colour:    #151515;    /* main background (very dark grey) */
-  --secondary-colour:  #2b2a2a;    /* subtle contrast for cards and panels */
-  --accent-colour:     #e63946;    /* deep crimson highlight */
-  --light-colour:      #f5f5f5;    /* almost white for high contrast text */
-  --text-muted:        #c4c4c4;    /* muted grey for secondary text */
-  --radius:            6px;
-  /* Provide an American-spelled alias so --accent-color resolves to the same value. */
-  --accent-color: var(--accent-colour);
-}
-
-/* Base styles for all pages */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Montserrat', sans-serif;
-  background-color: var(--primary-colour);
-  color: var(--light-colour);
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* Button styling */
-.btn {
-  display: inline-block;
-  background: var(--accent-colour);
-  color: #f5f5f5;
-  padding: 12px 30px;
-  border-radius: 30px;
-  font-size: 16px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-.btn:hover {
-  transform: translateY(-2px) scale(1.05);
-  background: var(--accent-colour);
-  box-shadow: 0 0 10px var(--accent-colour);
-}
-
-.btn:active {
-  transform: translateY(0);
-}
-
-/* Landing page */
-.landing {
-  /*
-    Occupies the entire viewport and provides a dramatic backdrop with our Jujutsu
-    Kaisen illustration overlaid by a dark gradient.  The pattern no longer scrolls
-    away because the decorative border is drawn via a pseudo element defined below.
-  */
-  min-height: 100vh;
+.skeleton-arrow {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin: 0 20px;
+  border-radius: 50%;
+  background: var(--card-background);
+  border: 2px solid var(--accent-colour);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  /* Layer the hero artwork beneath a semi-transparent black gradient to improve
-     readability of the text.  The image is anchored to the bottom so the
-     characters stay in view on tall screens. */
-  background:
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 0.9) 100%),
-    url('../assets/images/jjk_bg.png') center bottom/cover no-repeat;
-  color: var(--light-colour);
-  overflow-x: hidden;
-  position: relative;
-  padding: 0;
-}
-
-/* A gothic border sits at the bottom of the landing page.  It uses a pseudo–element
-   so the markup can remain clean.  The opacity keeps it subtle. */
-.landing::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 200px;
-  background: url('../assets/images/gothic_border.webp') center bottom/cover no-repeat;
-  opacity: 0.6;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Content wrapper for the landing page.  It centres the heading, description and button
-   on both axes and ensures they sit above the decorative background. */
-.landing-content {
-  position: relative;
-  z-index: 2;
-  max-width: 900px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 5rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.landing-content h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 16px var(--shadow-colour);
+  user-select: none;
   color: var(--accent-colour);
-  font-family: 'Metal Mania', 'Montserrat', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1;
 }
 
-.landing-content p {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  max-width: 650px;
-  color: var(--text-muted);
-  font-family: 'Montserrat', sans-serif;
+.skeleton-arrow:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px var(--shadow-colour);
 }
 
-@media (min-width: 768px) {
-  .landing-content h1 {
-    font-size: 4rem;
-  }
-  .landing-content p {
-    font-size: 1.25rem;
-  }
+/* Insert a skull/bone unicode character to represent navigation.
+   The same symbol is used for both left and right; orientation is
+   communicated by placement on screen.  Feel free to swap this for
+   another emoji or icon if desired (e.g. 🐉 for a dragon). */
+.skeleton-arrow::before {
+  content: '\1F480'; /* skull emoji */
+  font-family: 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
+  font-size: 1.8rem;
+  pointer-events: none;
 }
 
 /* Carousel page */
 .carousel-page {
-  background: var(--primary-colour);
+  /* Spread out the content vertically and apply our gothic background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   min-height: 100vh;
-  padding: 40px 0 100px;
+  padding-top: 80px;
+  text-align: center;
+  background: url('../assets/images/gothic_pattern.png') no-repeat center center fixed;
+  background-size: cover;
 }
 
 .carousel-title {
-  font-family: 'Metal Mania', cursive;
   font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   color: var(--accent-colour);
+  font-family: 'Metal Mania', 'Montserrat', sans-serif;
 }
 
 .carousel-container {
   position: relative;
-  max-width: 800px;
+  width: 90vw;
+  max-width: 900px;
+  height: 500px;
   margin: 0 auto;
+  perspective: 1000px;
+  /* Add a subtle radial highlight behind the videos to draw the eye to
+     the centre of the carousel. The pseudo element is positioned
+     absolutely within the container and does not interfere with pointer
+     events. */
+  position: relative;
+}
+
+/* Radial highlight behind the carousel items */
+.carousel-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  height: 90%;
+  border-radius: 50%;
+  /* Increase the opacity of the inner colour stop to make the halo more
+     noticeable.  The highlight should subtly draw the eye without
+     overwhelming the dark theme. */
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0));
+  z-index: 0;
+  pointer-events: none;
 }
 
 .carousel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  perspective: 1500px;
-  overflow: visible;
-  height: 350px;
   position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
 }
 
 .carousel-item {
+  position: absolute;
   width: 60%;
-  max-width: 600px;
-  margin: 0 10px;
-  transition: transform 0.5s ease, filter 0.5s ease;
-  transform-style: preserve-3d;
-  position: relative;
+  max-width: 500px;
+  height: 70%;
+  opacity: 0;
+  transition: transform 0.8s ease, opacity 0.8s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .carousel-item video {
   width: 100%;
-  border-radius: var(--radius);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border-colour);
+  background: #000;
 }
 
 .carousel-item .caption {
-  color: var(--light-colour);
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  margin-top: 0.5rem;
-  text-align: center;
+  margin-top: 10px;
+  font-size: 1.1rem;
+  color: var(--text-muted);
 }
 
-/* Position arrows on either side of the carousel */
+/* Position classes */
+.carousel-item.center {
+  /* Make the active carousel item slightly larger so it stands out */
+  /*
+     Enlarge the centre item more than before so it becomes the clear focal
+     point of the carousel. Scaling by 1.30 (30% larger) makes the video
+     card obviously larger without overwhelming the page layout.  The
+     translation remains zero because the item stays centred.  We keep
+     rotation at 0 to present it head‑on.
+   */
+  /*
+    Increase the scale of the selected carousel card beyond the original
+    30% uplift to make it more obviously the focus.  A 35% scale
+    accentuates the active item without dwarfing the neighbouring
+    videos.  The z‑index is also increased so the item sits above
+    adjacent cards when overlapping occurs.
+  */
+  transform: translateX(0) scale(1.35) rotateY(0deg);
+  opacity: 1;
+  z-index: 5;
+  /* Add a drop shadow around the active item to draw the eye.  The red
+     hue ties in with the gothic styling used throughout the site. */
+  filter: drop-shadow(0 0 25px rgba(255, 51, 51, 0.45));
+}
+
+/* When a video is the active (centered) item in the carousel, enlarge the
+   video slightly and apply a shadow so it clearly stands out from the
+   neighbours. The increased z‑index ensures it sits on top of other items. */
+.carousel-item.center video {
+  /*
+     Bump the video scale up significantly when the card is active to make
+     the moving content more immersive. A 20% scale increase pairs nicely
+     with the increased card size above. We also increase the glow radius
+     slightly to match the larger size.
+   */
+  /* Slightly increase the video scale on the active card to match the
+     enlarged container.  A 25% increase yields a balanced look. */
+  transform: scale(1.25);
+  z-index: 5;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7), 0 0 30px var(--accent-colour);
+}
+
+.carousel-item.left {
+  /*
+     With the centre item enlarged, we need to push the items to its sides
+     further away to prevent overlap. Increasing the translation to
+     -340px and keeping the scale at 0.8 maintains a layered look.  We
+     slightly increase the z-index to ensure these items sit above the
+     far‑left/far‑right elements but below the centre.
+   */
+  transform: translateX(-340px) scale(0.8) rotateY(20deg);
+  opacity: 0.6;
+  z-index: 3;
+}
+
+.carousel-item.right {
+  /* Mirror of the `.left` rules: push to the right and maintain the same
+     shrink/rotation values.  We move it further (340px) to balance with
+     the larger centre card. */
+  transform: translateX(340px) scale(0.8) rotateY(-20deg);
+  opacity: 0.6;
+  z-index: 3;
+}
+
+.carousel-item.far-left {
+  /*
+     Push the second tier even further out (–540px) to make room for the
+     enlarged centre and first tier items.  Increase the scale slightly
+     (0.55) so they aren’t too tiny and adjust the z-index so they sit
+     behind the first tier but above hidden items.
+   */
+  transform: translateX(-540px) scale(0.55) rotateY(30deg);
+  opacity: 0.3;
+  z-index: 2;
+}
+
+.carousel-item.far-right {
+  /* Mirror of `.far-left` adjustments: move further to the right and
+     increase the scale slightly. */
+  transform: translateX(540px) scale(0.55) rotateY(-30deg);
+  opacity: 0.3;
+  z-index: 2;
+}
+
+.carousel-item.hidden {
+  transform: translateX(0) scale(0.4);
+  opacity: 0;
+}
+
+/* Navigation arrows on carousel page
+   Use a single class for both arrows; the IDs (#prevVideo, #nextVideo) control
+   whether the button sits to the left or right of the carousel wrapper.  A
+   circular outline and subtle glow on hover give the buttons a gothic feel
+   without relying on emoji. */
 .video-arrow {
   position: absolute;
   top: 50%;
@@ -325,8 +362,8 @@ a {
   justify-content: center;
   font-size: 2rem;
   line-height: 1;
-  /* Use the accent colour for the glyph and border on the button.  The dark
-     background makes the crimson edge pop. */
+  /* Use the accent colour on the arrow glyph instead of white to tie in with
+     the headings and other controls */
   color: var(--accent-colour);
   background: rgba(0, 0, 0, 0.4);
   cursor: pointer;
@@ -334,7 +371,6 @@ a {
   z-index: 5;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .video-arrow:hover {
   transform: translateY(-50%) scale(1.1);
   box-shadow: 0 0 10px var(--accent-colour);
@@ -351,76 +387,12 @@ a {
   content: '\276F';
 }
 
-/* Specific positions for left/right arrows */
 #prevVideo {
   left: -70px;
 }
+
 #nextVideo {
   right: -70px;
-}
-
-.navigation {
-  margin-top: 30px;
-  text-align: center;
-}
-
-/* Final page */
-.final-page {
-  background: linear-gradient(135deg, #000 0%, #0f0f0f 100%);
-  min-height: 100vh;
-  padding: 40px 0 80px;
-}
-
-.final-page h1 {
-  font-family: 'Metal Mania', cursive;
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 30px;
-  color: var(--accent-colour);
-}
-
-.final-page p {
-  text-align: center;
-  color: var(--text-muted);
-  max-width: 600px;
-  margin: 0 auto 30px;
-}
-
-.picture-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.grid-item {
-  width: 200px;
-  height: 200px;
-  overflow: hidden;
-  border-radius: var(--radius);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
-}
-
-.grid-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Specific positions for left/right arrows */
-#prevVideo {
-  left: -70px;
-}
-#nextVideo {
-  right: -70px;
-}
-
-.navigation {
-  margin-top: 30px;
-  text-align: center;
 }
 
 /* Final page */
