@@ -1,383 +1,257 @@
-/*
-  Global styles for the Best Friend Gift Website
-  ----------------------------------------------
-  A unified dark theme with subtle skeleton‑inspired accents.  Colour
-  variables defined at the top make it easy to customise the look
-  and feel.  All pages share these styles, ensuring consistent
-  typography, layouts and component styling.
-*/
-
-/* Colour palette
-   -----------------------------------------------------------------------
-   A deep crimson accent paired with inky blacks sets a moody, hard‑rock
-   atmosphere.  The variables below control every colour used in the site,
-   making it easy to tweak the look later on.  The purple accent from the
-   first version has been replaced with a rich red to better suit the emo/
-   rock vibe. */
+/* Basic variables for colours */
 :root {
-  /* Base colours */
-  --background-dark: #070707;    /* almost black */
-  --card-background:   #121212;    /* panels & cards */
-  --accent-colour:     #e63946;    /* deep crimson highlight */
-  --text-light:        #f2f2f2;    /* high‑contrast text */
-  --text-muted:        #888;       /* softer supporting text */
-  --border-colour:     #2a2a2a;    /* subtle panel outlines */
-  --shadow-colour:     rgba(0,0,0,0.7); /* deeper shadows */
-
-  /* Derived colours */
-  --accent-colour-light: #f26a75; /* lighter version of accent for hover states */
+  --background-dark: #0e0e0e;
+  --primary-colour: #111;
+  --accent-colour: #ff5252;
+  --text-colour: #fff;
+  --text-muted: #c2c2c2;
 }
 
-/* Global reset */
+/* Global styles */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
-body {
-  font-family: 'Montserrat', 'Segoe UI', Tahoma, sans-serif;
-  background-color: var(--background-dark);
-  color: var(--text-light);
-  line-height: 1.6;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  overflow-x: hidden;
-  /* subtle noise overlay for a grungy feel */
-  background-image:
-    radial-gradient(circle at center, transparent 0%, transparent 50%, rgba(255,255,255,0.02) 51%),
-    repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0 2px, transparent 2px 4px);
+body,
+html {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text-colour);
 }
 
-/* Reusable button
-   Buttons adopt the accent colour and a pill shape.  The border is
-   slightly inset to resemble a guitar pick, reinforcing the rock theme. */
+/* Button styles */
 .btn {
   display: inline-block;
-  background: var(--accent-colour);
+  padding: 12px 24px;
   color: #fff;
-  padding: 12px 30px;
-  border-radius: 50px;
+  border: 2px solid var(--accent-colour);
+  border-radius: 4px;
+  background-color: var(--accent-colour);
   text-decoration: none;
   font-weight: 600;
-  transition: background 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 6px 16px var(--shadow-colour);
-  border: 2px solid var(--border-colour);
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .btn:hover {
-  background: var(--accent-colour-light);
-  transform: translateY(-3px);
+  transform: scale(1.05);
+  background-color: #ff7272;
 }
 
-/* Landing page */
+/* Landing page
+   The gothic gift should feel like stepping into a dark, romantic world.  A
+   textured background of black roses and chains sets the tone, while a
+   balanced two‑column layout introduces the message alongside a stylised
+   illustration. */
 .landing {
+  /* Fill the viewport and fix the pattern so it doesn’t scroll away. */
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-  height: 100vh;
-  background: linear-gradient(180deg, var(--background-dark) 0%, #141414 100%);
-  padding: 40px;
+  justify-content: center;
+  background: url('../assets/images/gothic_pattern.png') no-repeat center center fixed;
+  background-size: cover;
+  color: #f5f5f5;
+  padding: 60px 20px;
 }
 
 .landing-container {
-  max-width: 700px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  width: 100%;
 }
 
-.landing-container h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  font-weight: 700;
+/* Left side: message */
+.hero-content {
+  flex: 1 1 50%;
+  padding: 20px;
+}
+
+.hero-content h1 {
+  font-size: 4rem;
+  margin-bottom: 24px;
   color: var(--accent-colour);
   font-family: 'Metal Mania', 'Montserrat', sans-serif;
 }
 
-.landing-container p {
-  font-size: 1.2rem;
-  margin-bottom: 40px;
+.hero-content p {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 32px;
   color: var(--text-muted);
+  max-width: 600px;
 }
 
-/* The explanation page has been removed.  Styles that were used solely
-   on that page have been deleted. */
-
-/* Skeleton arrow buttons
-   These circular buttons act as navigation for the video carousel.
-   They feature a crimson outline and a subtle skull/bone emblem in
-   place of plain arrows.  We remove the built‑in unicode arrows from
-   HTML to avoid visual overlap; instead the symbol inside the
-   button is provided via CSS. */
-.skeleton-arrow {
-  position: relative;
-  width: 64px;
-  height: 64px;
-  margin: 0 20px;
-  border-radius: 50%;
-  background: var(--card-background);
-  border: 2px solid var(--accent-colour);
+/* Right side: illustration */
+.hero-image {
+  flex: 1 1 50%;
+  padding: 20px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 6px 16px var(--shadow-colour);
-  user-select: none;
-  color: var(--accent-colour);
-  font-size: 1.6rem;
-  line-height: 1;
+  align-items: center;
 }
 
-.skeleton-arrow:hover {
-  transform: scale(1.08);
-  box-shadow: 0 8px 20px var(--shadow-colour);
+.hero-image img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+  /* Subtle desaturation so the image doesn’t compete with the text */
+  filter: grayscale(20%) brightness(90%);
 }
 
-/* Insert a skull/bone unicode character to represent navigation.
-   The same symbol is used for both left and right; orientation is
-   communicated by placement on screen.  Feel free to swap this for
-   another emoji or icon if desired (e.g. 🐉 for a dragon). */
-.skeleton-arrow::before {
-  content: '\1F480'; /* skull emoji */
-  font-family: 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
-  font-size: 1.8rem;
-  pointer-events: none;
+/* Make the hero stack vertically on narrow screens */
+@media (max-width: 768px) {
+  .landing-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-content,
+  .hero-image {
+    flex: 1 1 100%;
+    padding: 10px;
+  }
+  .hero-content h1 {
+    font-size: 2.8rem;
+  }
+  .hero-content p {
+    font-size: 1.1rem;
+  }
 }
 
 /* Carousel page */
 .carousel-page {
+  /* Spread out the content vertically and apply our gothic background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
   padding-top: 80px;
   text-align: center;
+  background: url('../assets/images/gothic_pattern.png') no-repeat center center fixed;
+  background-size: cover;
 }
 
 .carousel-title {
-  font-size: 2.5rem;
+  font-family: 'Metal Mania', 'Montserrat', sans-serif;
+  font-size: 3rem;
   margin-bottom: 40px;
   color: var(--accent-colour);
-  font-family: 'Metal Mania', 'Montserrat', sans-serif;
 }
 
 .carousel-container {
   position: relative;
-  width: 90vw;
-  max-width: 900px;
-  height: 500px;
-  margin: 0 auto;
-  perspective: 1000px;
+  width: 80%;
+  max-width: 600px;
+  padding: 20px 0;
+  overflow: hidden;
+  margin: auto;
 }
 
 .carousel {
-  position: relative;
-  width: 100%;
-  height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  transform-style: preserve-3d;
+  transition: transform 0.5s ease-in-out;
 }
 
 .carousel-item {
-  position: absolute;
-  width: 60%;
-  max-width: 500px;
-  height: 70%;
-  opacity: 0;
-  transition: transform 0.8s ease, opacity 0.8s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  min-width: 100%;
+  text-align: center;
 }
 
 .carousel-item video {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 1px solid var(--border-colour);
-  background: #000;
+  height: auto;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
-.carousel-item .caption {
+.caption {
   margin-top: 10px;
   font-size: 1.1rem;
   color: var(--text-muted);
 }
 
-/* Position classes */
-.carousel-item.center {
-  transform: translateX(0) scale(1) rotateY(0deg);
-  opacity: 1;
-  z-index: 3;
-}
-
-.carousel-item.left {
-  transform: translateX(-260px) scale(0.8) rotateY(20deg);
-  opacity: 0.6;
-  z-index: 2;
-}
-
-.carousel-item.right {
-  transform: translateX(260px) scale(0.8) rotateY(-20deg);
-  opacity: 0.6;
-  z-index: 2;
-}
-
-.carousel-item.far-left {
-  transform: translateX(-400px) scale(0.5) rotateY(30deg);
-  opacity: 0.3;
-  z-index: 1;
-}
-
-.carousel-item.far-right {
-  transform: translateX(400px) scale(0.5) rotateY(-30deg);
-  opacity: 0.3;
-  z-index: 1;
-}
-
-.carousel-item.hidden {
-  transform: translateX(0) scale(0.4);
-  opacity: 0;
-}
-
-/* Navigation arrows on carousel page */
-.arrow-left,
-.arrow-right {
+/* Navigation arrows on carousel page
+   Use a single class for both arrows; the IDs (#prevVideo, #nextVideo) control
+   whether the button sits to the left or right of the carousel wrapper.  A
+   circular outline and subtle glow on hover give the buttons a gothic feel
+   without relying on emoji. */
+.video-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  line-height: 1;
+  color: #f5f5f5;
+  background: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
   z-index: 5;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.video-arrow:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 0 10px var(--accent-colour);
 }
 
-.arrow-left {
-  left: -80px;
+#prevVideo {
+  left: -70px;
 }
 
-.arrow-right {
-  right: -80px;
+#nextVideo {
+  right: -70px;
 }
 
-/* Picture grid */
+/* Final page */
 .final-page {
+  /* Give the final page the same dark gothic backdrop and ensure it fills the screen */
+  min-height: 100vh;
   padding: 80px 20px;
   text-align: center;
+  background: url('../assets/images/gothic_pattern.png') no-repeat center center fixed;
+  background-size: cover;
 }
 
 .final-page h1 {
   font-size: 2.5rem;
   margin-bottom: 20px;
-  color: var(--accent-colour);
   font-family: 'Metal Mania', 'Montserrat', sans-serif;
 }
 
 .final-page p {
-  margin-bottom: 40px;
+  font-size: 1rem;
+  margin-bottom: 20px;
   color: var(--text-muted);
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .picture-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 15px;
-  width: 90vw;
-  max-width: 1000px;
-  margin: 0 auto 40px auto;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
 }
 
-.picture-grid img {
+.grid-item img {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 2px solid var(--accent-colour);
-  box-shadow: 0 6px 16px var(--shadow-colour);
-  /* slight desaturation to unify different photos; remove if undesired */
-  filter: saturate(80%);
-}
-
-/*
- * -----------------------------------------------------------------------------
- * Video carousel arrow redesign
- *
- * Replace the skull‑emoji navigation used on the video carousel with simple
- * angle‑bracket arrows.  These arrows are implemented as pseudo elements on a
- * .video-arrow button.  The button is a circular outline that scales on
- * hover to provide feedback.  Because we continue to reference the original
- * element IDs (#prevVideo and #nextVideo), the existing JavaScript controls
- * remain functional.  Add these styles after other carousel rules so they
- * override previous definitions where necessary.
- */
-.video-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
-  border: 2px solid var(--accent-colour);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1;
-  transition: transform 0.2s ease;
-  /* dark translucent backdrop to separate the arrow from video frames */
-  background: rgba(0, 0, 0, 0.5);
-}
-.video-arrow:hover {
-  transform: translateY(-50%) scale(1.1);
-}
-/* Base arrow glyph style */
-.video-arrow::before {
-  font-size: 2rem;
-  color: var(--accent-colour);
-  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
-}
-/* Positioning overrides for left/right arrows */
-.video-arrow.arrow-left {
-  left: -24px;
-}
-.video-arrow.arrow-right {
-  right: -24px;
-}
-/* Left arrow glyph (‹) */
-.video-arrow.arrow-left::before {
-  content: '\2039';
-}
-/* Right arrow glyph (›) */
-.video-arrow.arrow-right::before {
-  content: '\203A';
-}
-
-/*
- * JJK splash image on the landing page
- *
- * The landing page now includes an illustration of Yuji and Todou.  To keep
- * the design clean, constrain its width, add a slight margin and subtle
- * shadows, and round the corners.  These styles are scoped to the .landing
- * body class so they don't inadvertently affect images on other pages.
- */
-.landing .jjk-image {
-  max-width: 80%;
   height: auto;
-  margin-top: 2rem;
-  border-radius: 12px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Utility: lighten function using CSS custom properties (fallback if not supported) */
-@supports (color: color-mix(in srgb, red, blue)) {
-  :root {
-    /* lighten the accent colour by mixing with white */
-    --accent-colour-light: color-mix(in srgb, var(--accent-colour) 80%, white 20%);
-  }
-  .btn:hover {
-    background: var(--accent-colour-light);
-  }
+.grid-item img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px var(--accent-colour);
 }
