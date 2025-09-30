@@ -1,283 +1,239 @@
-/* Colour palette and global resets */
-:root {
-  --primary-colour:    #151515;    /* main background (very dark grey) */
-  --secondary-colour:  #2b2a2a;    /* subtle contrast for cards and panels */
-  --accent-colour:     #e63946;    /* deep crimson highlight */
-  --light-colour:      #f5f5f5;    /* almost white for high contrast text */
-  --text-muted:        #c4c4c4;    /* muted grey for secondary text */
-  --radius:            6px;
-  /* Provide an American-spelled alias so --accent-color resolves to the same value. */
-  --accent-color: var(--accent-colour);
-}
-
-/* Base styles for all pages */
-body {
+/* Reset & base styles */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
-  background-color: var(--primary-colour);
-  color: var(--light-colour);
+}
+
+:root {
+  --background-colour: #0a0a0a;
+  --card-background: #191919;
+  --accent-colour: #e63946;
+  --primary-font: 'Montserrat', sans-serif;
+  --heading-font: 'Metal Mania', cursive;
+  --transition-speed: 0.3s;
+}
+
+body {
+  font-family: var(--primary-font);
+  color: #fff;
+  background-color: var(--background-colour);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+h1, h2 {
+  font-family: var(--heading-font);
+  color: var(--accent-colour);
 }
 
 a {
+  color: var(--accent-colour);
   text-decoration: none;
-  color: inherit;
 }
 
-/* Button styling */
 .btn {
-  display: inline-block;
-  background: var(--accent-colour);
-  color: #f5f5f5;
-  padding: 12px 30px;
-  border-radius: 30px;
-  font-size: 16px;
-  font-weight: 700;
+  background-color: var(--accent-colour);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 25px;
   text-transform: uppercase;
+  font-weight: 700;
   letter-spacing: 1px;
-  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-.btn:hover {
-  transform: translateY(-2px) scale(1.05);
-  background: var(--accent-colour);
-  box-shadow: 0 0 10px var(--accent-colour);
+  transition: background-color var(--transition-speed) ease;
 }
 
-.btn:active {
-  transform: translateY(0);
+.btn:hover {
+  background-color: darken(var(--accent-colour), 10%);
 }
 
 /* Landing page */
 .landing {
-  /*
-    Occupies the entire viewport and provides a dramatic backdrop with our Jujutsu
-    Kaisen illustration overlaid by a dark gradient.  The pattern no longer scrolls
-    away because the decorative border is drawn via a pseudo element defined below.
-  */
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  /* Layer the hero artwork beneath a semi-transparent black gradient to improve
-     readability of the text.  The image is anchored to the bottom so the
-     characters stay in view on tall screens. */
-  background:
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 0.9) 100%),
-    url('../assets/images/jjk_bg.png') center bottom/cover no-repeat;
-  color: var(--light-colour);
-  overflow-x: hidden;
-  position: relative;
-  padding: 0;
-}
-
-/* A gothic border sits at the bottom of the landing page.  It uses a pseudo–element
-   so the markup can remain clean.  The opacity keeps it subtle. */
-.landing::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 200px;
-  background: url('../assets/images/gothic_border.webp') center bottom/cover no-repeat;
-  opacity: 0.6;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Content wrapper for the landing page.  It centres the heading, description and button
-   on both axes and ensures they sit above the decorative background. */
-.landing-content {
-  position: relative;
-  z-index: 2;
-  max-width: 900px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 5rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  min-height: 100vh;
   text-align: center;
 }
 
-.landing-content h1 {
-  font-size: 3rem;
+.landing-container {
+  max-width: 800px;
+}
+
+.landing-container h1 {
   margin-bottom: 1rem;
-  color: var(--accent-colour);
-  font-family: 'Metal Mania', 'Montserrat', sans-serif;
+  font-size: 3rem;
+  letter-spacing: 2px;
 }
 
-.landing-content p {
-  font-size: 1.2rem;
-  line-height: 1.6;
+.landing-container p {
   margin-bottom: 2rem;
-  max-width: 650px;
-  color: var(--text-muted);
-  font-family: 'Montserrat', sans-serif;
-}
-
-@media (min-width: 768px) {
-  .landing-content h1 {
-    font-size: 4rem;
-  }
-  .landing-content p {
-    font-size: 1.25rem;
-  }
+  font-size: 1.1rem;
+  color: #ccc;
 }
 
 /* Carousel page */
 .carousel-page {
-  background: var(--primary-colour);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   min-height: 100vh;
-  padding: 40px 0 100px;
+  padding: 2rem 1rem;
 }
 
 .carousel-title {
-  font-family: 'Metal Mania', cursive;
+  margin-bottom: 2rem;
   font-size: 2.5rem;
   text-align: center;
-  margin-bottom: 30px;
-  color: var(--accent-colour);
 }
 
 .carousel-container {
   position: relative;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.carousel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  perspective: 1500px;
-  overflow: visible;
-  height: 350px;
-  position: relative;
-}
-
-.carousel-item {
-  width: 60%;
-  max-width: 600px;
-  margin: 0 10px;
-  transition: transform 0.5s ease, filter 0.5s ease;
-  transform-style: preserve-3d;
-  position: relative;
-}
-
-.carousel-item video {
   width: 100%;
-  border-radius: var(--radius);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+  max-width: 1000px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.carousel-item .caption {
-  color: var(--light-colour);
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  margin-top: 0.5rem;
-  text-align: center;
-}
-
-/* Position arrows on either side of the carousel */
 .video-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  /* Make the arrows a bit larger to improve click area.  The border uses the
-     accent colour instead of a pale grey to tie in with the other gothic
-     elements. */
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   border: 2px solid var(--accent-colour);
   border-radius: 50%;
+  color: var(--accent-colour);
+  font-size: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  line-height: 1;
-  /* Use the accent colour for the glyph and border on the button.  The dark
-     background makes the crimson edge pop. */
-  color: var(--accent-colour);
-  background: rgba(0, 0, 0, 0.4);
   cursor: pointer;
-  user-select: none;
-  z-index: 5;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 4;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.video-arrow.arrow-left {
+  left: 10px;
+}
+
+.video-arrow.arrow-right {
+  right: 10px;
 }
 
 .video-arrow:hover {
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 0 10px var(--accent-colour);
+  background-color: var(--accent-colour);
+  color: #fff;
 }
 
-/* Insert arrow glyphs via pseudo elements instead of writing HTML entities directly in
-   the markup.  This keeps the HTML clean and lets us style both arrows with a
-   consistent heavy angle symbol. */
-.video-arrow.arrow-left::before {
-  content: '\276E';
+.carousel {
+  display: flex;
+  width: 80%;
+  height: 100%;
+  perspective: 1000px;
 }
 
-.video-arrow.arrow-right::before {
-  content: '\276F';
+.carousel-item {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 200px;
+  height: 100%;
+  opacity: 0;
+  transform-style: preserve-3d;
+  transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
 }
 
-/* Specific positions for left/right arrows */
-#prevVideo {
-  left: -70px;
-}
-#nextVideo {
-  right: -70px;
+.carousel-item video {
+  width: 100%;
+  height: 80%;
+  border-radius: 10px;
+  background-color: #111;
 }
 
-.navigation {
-  margin-top: 30px;
+.carousel-item .caption {
   text-align: center;
+  margin-top: 8px;
+  font-size: 0.9rem;
 }
 
-/* Final page */
+.carousel-item.hidden {
+  opacity: 0;
+}
+
+.carousel-item.far-left {
+  transform: translateX(-300px) rotateY(45deg) scale(0.6);
+  opacity: 0.5;
+}
+
+.carousel-item.left {
+  transform: translateX(-150px) rotateY(25deg) scale(0.8);
+  opacity: 0.7;
+}
+
+.carousel-item.center {
+  /* Make the active item larger and centered */
+  transform: translateX(0) scale(1.15) rotateY(0deg);
+  opacity: 1;
+  z-index: 3;
+}
+
+.carousel-item.center video {
+  transform: scale(1.05);
+  z-index: 4;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.7), 0 0 20px var(--accent-colour);
+}
+
+.carousel-item.right {
+  transform: translateX(150px) rotateY(-25deg) scale(0.8);
+  opacity: 0.7;
+}
+
+.carousel-item.far-right {
+  transform: translateX(300px) rotateY(-45deg) scale(0.6);
+  opacity: 0.5;
+}
+
+/* Final page (photo grid) */
 .final-page {
-  background: linear-gradient(135deg, #000 0%, #0f0f0f 100%);
-  min-height: 100vh;
-  padding: 40px 0 80px;
+  padding: 2rem;
 }
 
 .final-page h1 {
-  font-family: 'Metal Mania', cursive;
+  margin-bottom: 1rem;
   font-size: 2.5rem;
   text-align: center;
-  margin-bottom: 30px;
-  color: var(--accent-colour);
 }
 
 .final-page p {
+  margin-bottom: 1.5rem;
   text-align: center;
-  color: var(--text-muted);
-  max-width: 600px;
-  margin: 0 auto 30px;
+  color: #ccc;
 }
 
 .picture-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.grid-item {
-  width: 200px;
-  height: 200px;
-  overflow: hidden;
-  border-radius: var(--radius);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
 }
 
 .grid-item img {
   width: 100%;
-  height: 100%;
+  height: 200px;
   object-fit: cover;
-  display: block;
+  border-radius: 10px;
+  transition: transform var(--transition-speed) ease;
+}
+
+.grid-item img:hover {
+  transform: scale(1.05);
+}
+
+/* Buttons in photo grid and navigation */
+.navigation {
+  margin-top: 2rem;
+  text-align: center;
 }
